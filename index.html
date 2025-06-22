@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pok&eacute;dex </title>
+</head>
+
+<body>
+
+
+
+    <div class="main-sec">
+
+        <div class="poke-box">
+
+            <!-- search -->
+
+            <div class="poke-search">
+
+                <h1>Pok&eacute;dex</h1>
+
+
+                <input id="poke-finder" placeholder="Enter Pokemon Name/Id">
+                <button onclick="searchData()">search</button>
+
+
+            </div>
+
+            <!-- Pokemons -->
+
+            <div id="poke-container">
+
+            </div>
+
+            <div class="loading" id="loading">
+                <img src="loading.gif" alt="">
+                <h2>Searching tall grass...</h2>
+            </div>
+
+            <button onclick=" loader(); setTimeout(fetchData, 1500); " class="find-button" id="find-button">Load more
+                pok&eacute;mon</button>
+        </div>
+
+    </div>
+
+    <footer id="footer">
+
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+
+
+</html>

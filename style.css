@@ -1,0 +1,207 @@
+@import url(https://db.onlinewebfonts.com/c/073a3b73a63a87e100f6bb8f003fc0d3?family=Flexo-Demi);
+
+
+/* <div class="poke-info">
+  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png">
+  <p class="poke-id">#0001</p>
+  <h2>Bulbasaur</h2>
+  <ul class="type-flex">
+    <li style="background: #9bcc50;">Grass</li>
+    <li style="background: #b97fc9;">Poison</li>
+  </ul>
+</div>
+<div class="poke-info">
+  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png">
+  <p class="poke-id">#0004</p>
+  <h2>Charmander</h2>
+  <ul class="type-flex">
+    <li style="background: #fd7d24;">Fire</li>
+  </ul>
+</div> */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+
+    --main-font: "Flexo-Demi", arial, sans-serif;
+
+}
+
+body {
+    background-color: #313131;
+}
+
+.main-sec {
+
+    padding: 8rem 8rem 0 8rem;
+
+}
+
+.poke-box {
+    background-color: antiquewhite;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.poke-search {
+    padding: 2rem;
+    margin-bottom: 4rem;
+}
+
+.poke-search h1 {
+    font-family: var(--main-font);
+    font-size: 62px;
+}
+
+.poke-search input {
+    padding: .7rem .2rem .7rem .2rem;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 3px solid #313131;
+}
+
+.poke-search button {
+    font-family: var(--main-font);
+    padding: .7rem .2rem .7rem .2rem;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 3px solid #313131;
+    background-color: palegreen;
+    cursor: pointer;
+}
+
+
+
+
+
+.poke-name {
+    font-family: var(--main-font);
+    font-size: 31px;
+
+}
+
+.poke-id {
+    font-family: var(--main-font);
+    font-size: 31px;
+
+}
+
+#poke-container {
+
+
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    gap: 5px;
+}
+
+.poke-info {
+    display: inline-grid;
+
+
+    display: block;
+    margin: 1rem auto auto auto;
+
+}
+
+
+
+
+.poke-info img {
+    width: 201px;
+    height: 201px;
+    background-color: rgb(167, 159, 148);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.poke-info h2 {
+    font-family: var(--main-font);
+    font-weight: 400;
+    color: #313131;
+    font-size: 145%;
+
+
+
+
+}
+
+.poke-info .poke-id {
+    font-family: var(--main-font);
+    font-size: 12px;
+    color: rgba(70, 70, 70, 0.747);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+
+
+.type-flex {
+    font-family: var(--main-font);
+    display: flex;
+
+
+}
+
+.type-flex li {
+    font-size: 11px;
+    list-style: none;
+    font-family: var(--main-font);
+    border-radius: 3px;
+    line-height: 18px;
+    margin: 0 1.5625% 0 0;
+    width: 30%;
+    float: left;
+    text-transform: none;
+    text-align: center;
+}
+
+.loading {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loading img {
+    width: 280px;
+}
+
+.loading h2 {
+    font-family: var(--main-font);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    font-family: var(--main-font);
+    font-size: 20px;
+    color: rgb(70, 70, 70);
+    background-color: antiquewhite;
+    width: 100%;
+    margin-top: 2rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 400;
+    display: none;
+}
+
+.find-button {
+    font-family: var(--main-font);
+    margin: 2rem auto 2rem auto;
+    display: none;
+    background: linear-gradient(180deg, #EE1C23 48%, #FFFFFF 48%);
+    padding: 1rem;
+    border: 3px solid #313131;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.find-button:hover {
+    opacity: .8;
+}
