@@ -64,16 +64,25 @@ body {
     border: 3px solid #313131;
 }
 
-.poke-search button {
+.poke-search #search-submit {
     font-family: var(--main-font);
     padding: .7rem .2rem .7rem .2rem;
     font-size: 18px;
     border-radius: 8px;
     border: 3px solid #313131;
-    background-color: palegreen;
+    background-color: rgb(255, 163, 26);
     cursor: pointer;
 }
 
+#random-submit {
+    font-family: var(--main-font);
+    padding: .7rem .2rem .7rem .2rem;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 3px solid #313131;
+    background-color: #2dff1a;
+    cursor: pointer;
+}
 
 
 
@@ -101,11 +110,9 @@ body {
 
 .poke-info {
     display: inline-grid;
-
-
     display: block;
     margin: 1rem auto auto auto;
-
+    width: 200px;
 }
 
 
@@ -124,11 +131,14 @@ body {
     font-weight: 400;
     color: #313131;
     font-size: 145%;
+    overflow-wrap: break-word;
+    word-break: break-all;
 
 
 
 
 }
+
 
 .poke-info .poke-id {
     font-family: var(--main-font);
@@ -192,7 +202,7 @@ footer {
 
 .find-button {
     font-family: var(--main-font);
-    margin: 2rem auto 2rem auto;
+    margin: 2rem 5rem 2rem auto;
     display: none;
     background: linear-gradient(180deg, #EE1C23 48%, #FFFFFF 48%);
     padding: 1rem;

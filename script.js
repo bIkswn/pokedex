@@ -6,24 +6,34 @@ const card = document.querySelector('#poke-container')
 
 const loadButton = document.getElementById('find-button')
 const loading = document.getElementById('loading')
+const searchInput = document.getElementById('poke-finder');
+const submitBtn = document.getElementById('search-submit')
+const randomBtn = document.getElementById('random-submit')
+
+
+let pokeCounter = 0;
 
 
 let searchOn = false;
+
+// set pokedex from id 0 and so on at default
 let firstRun = false;
 
-function loader() {
-
-
-    loading.style.display = 'flex'
-    loadButton.style.display = 'none'
-
-}
-
-
+// random the pokedex
+let randomMode = false;
 
 setTimeout(fetchData, 2000)
 
-let pokeCounter = 0;
+
+function loader() {
+
+    // display loading gif
+    loading.style.display = 'flex'
+
+    // remove load button while data loading
+    loadButton.style.display = 'none'
+}
+
 
 async function fetchData() {
 
@@ -31,9 +41,13 @@ async function fetchData() {
 
         card.style.justifyContent = "center"
 
+
+        // if search input is empty, it will set the pokedex at default and turns off the random mode
         if (searchOn) {
-            card.innerHTML = ""
+            card.innerHTML = "";
             searchOn = false;
+            pokeCounter = 0;
+            randomMode = false;
         }
 
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
@@ -47,57 +61,64 @@ async function fetchData() {
         //data
         const data = await response.json();
 
-        // for (let i = pokeCounter; i < 12 + pokeCounter; i++) {
-        //     fetchPokemonData(data.results[i])
-        // }
 
-        for (let i = pokeCounter; i < 12 + pokeCounter; i++) {
-            fetchPokemonData(data.results[randomizer(1025, 1)])
+        randomBtn.addEventListener('click', () => {
+            randomMode = true;
+            card.innerHTML = ''
+        })
+
+
+        //random 
+        if (randomMode) {
+            for (let i = pokeCounter; i < 12 + pokeCounter; i++) {
+                fetchPokemonData(data.results[randomizer(1025, 1)])
+            }
+        } else {
+            for (let i = pokeCounter; i < 12 + pokeCounter; i++) {
+                fetchPokemonData(data.results[i])
+            }
         }
-
 
         pokeCounter += 12;
 
 
     }
+
     catch (error) {
         console.error(error)
     }
 
-    //Footer
-
+    // display footer
     const footer = document.getElementById('footer');
 
     footer.innerHTML = `
    <p>Footer</p>
    `
-
     footer.style.display = 'block'
 
-
+    // remove loading gif after data was loaded
     loading.style.display = 'none'
+
+    //display back loading button
     loadButton.style.display = 'block'
 
 }
 
 async function searchData() {
     try {
-
-        searchOn = true;
+        searchOn = true
 
         card.innerHTML = ""
         card.style.justifyContent = "space-around"
 
 
-        const searchInput = document.getElementById('poke-finder');
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${capitalizeFirstLetter(searchInput.value)}`)
 
         const data = await response.json()
-
+        console.log(data)
         if (searchInput.value == "") {
 
             setTimeout(fetchData, 1500)
-
 
         } else {
             generatePokemon(data)
@@ -112,8 +133,6 @@ async function searchData() {
     }
 
 }
-
-
 
 
 
@@ -133,8 +152,9 @@ async function fetchPokemonData(pokemon) {
         console.log(error)
     }
 
-
 }
+
+
 
 async function generatePokemon(pokemon) {
 
@@ -142,7 +162,7 @@ async function generatePokemon(pokemon) {
     pokeInfoBox.classList.add('poke-info')
 
     const pokeSprite = document.createElement('img')
-    pokeSprite.src = pokemon.sprites.other['official-artwork'].front_default;
+    pokeSprite.src = pokemon.sprites.other['showdown'].front_default;
 
     const pokeName = document.createElement('h2')
     pokeName.innerText = capitalizeFirstLetter(pokemon.name)
@@ -256,5 +276,11 @@ const randomizer = (max, min) => {
     return randomizedNum
 }
 
+
+searchInput.addEventListener('keydown', (e) => {
+    if (e.key == "Enter") {
+        submitBtn.click()
+    }
+})
 
 
