@@ -4,15 +4,20 @@
 
 const card = document.querySelector('#poke-container')
 
-const loadButton = document.getElementById('find-button')
+const loadButton = document.getElementById('load-button')
 const loading = document.getElementById('loading')
 const searchInput = document.getElementById('poke-finder');
 const submitBtn = document.getElementById('search-submit')
-const randomBtn = document.getElementById('random-submit')
+
+//settings
+const randomBtn = document.getElementById('sort-random')
+const sortLH = document.getElementById('sort-lh')
+const sortHL = document.getElementById('sort-hl')
 
 
+
+//default 
 let pokeCounter = 0;
-
 
 let searchOn = false;
 
@@ -22,7 +27,36 @@ let firstRun = false;
 // random the pokedex
 let randomMode = false;
 
+// sort bool // default
+let sortSwitch = true;
+
+//============================================== FIRST RUN
 setTimeout(fetchData, 2000)
+
+
+sortLH.addEventListener('click', () => {
+    pokeCounter = 0;
+    sortSwitch = true;
+    randomMode = false;
+    card.innerHTML = ''
+    setTimeout(fetchData, 1000)
+})
+
+sortHL.addEventListener('click', () => {
+    pokeCounter = 1024;
+    sortSwitch = false;
+    randomMode = false;
+    card.innerHTML = ''
+    setTimeout(fetchData, 1000)
+})
+
+randomBtn.addEventListener('click', () => {
+    randomMode = true;
+    card.innerHTML = ''
+    setTimeout(fetchData, 1000)
+})
+
+
 
 
 function loader() {
@@ -33,6 +67,9 @@ function loader() {
     // remove load button while data loading
     loadButton.style.display = 'none'
 }
+
+
+
 
 
 async function fetchData() {
@@ -62,24 +99,38 @@ async function fetchData() {
         const data = await response.json();
 
 
-        randomBtn.addEventListener('click', () => {
-            randomMode = true;
-            card.innerHTML = ''
-        })
-
 
         //random 
         if (randomMode) {
-            for (let i = pokeCounter; i < 12 + pokeCounter; i++) {
+            for (let i = pokeCounter; i < pokeCounter + 12; i++) {
                 fetchPokemonData(data.results[randomizer(1025, 1)])
             }
         } else {
-            for (let i = pokeCounter; i < 12 + pokeCounter; i++) {
-                fetchPokemonData(data.results[i])
+
+            if (sortSwitch) {
+
+                for (let i = pokeCounter; i < pokeCounter + 12; i++) {
+                    fetchPokemonData(data.results[i])
+                }
+
+                pokeCounter += 12;
+
+            } else {
+
+
+                for (let i = pokeCounter; i > pokeCounter - 12; i--) {
+                    fetchPokemonData(data.results[i])
+                }
+
+                pokeCounter -= 12;
+
             }
+
+
+
         }
 
-        pokeCounter += 12;
+
 
 
     }
@@ -145,6 +196,7 @@ async function fetchPokemonData(pokemon) {
 
         const data = await response.json()
         // console.log(data);
+
         generatePokemon(data);
 
     }
@@ -162,7 +214,8 @@ async function generatePokemon(pokemon) {
     pokeInfoBox.classList.add('poke-info')
 
     const pokeSprite = document.createElement('img')
-    pokeSprite.src = pokemon.sprites.other['showdown'].front_default;
+    pokeSprite.src = pokemon.sprites.other[`${sprite}`].front_default;
+
 
     const pokeName = document.createElement('h2')
     pokeName.innerText = capitalizeFirstLetter(pokemon.name)
@@ -276,7 +329,7 @@ const randomizer = (max, min) => {
     return randomizedNum
 }
 
-
+// enter button will hit search
 searchInput.addEventListener('keydown', (e) => {
     if (e.key == "Enter") {
         submitBtn.click()
@@ -284,3 +337,27 @@ searchInput.addEventListener('keydown', (e) => {
 })
 
 
+
+
+
+let sprite = "official-artwork"
+const setSprite = document.getElementById('sprite-set');
+
+setSprite.addEventListener('click', () => {
+
+    if (sprite == "showdown") {
+        sprite = "official-artwork"
+        setSprite.innerText = "showdown sprite"
+    } else {
+        sprite = "showdown"
+        setSprite.innerText = "default sprite"
+    }
+
+    setTimeout(fetchData, 1500);
+
+    card.innerHTML = ""
+    pokeCounter = 0;
+
+
+
+})

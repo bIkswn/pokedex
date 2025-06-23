@@ -47,9 +47,16 @@ body {
     border-radius: 10px;
 }
 
+.settings {
+
+    margin: 0 auto 0 auto;
+
+}
+
+
 .poke-search {
     padding: 2rem;
-    margin-bottom: 4rem;
+
 }
 
 .poke-search h1 {
@@ -74,15 +81,76 @@ body {
     cursor: pointer;
 }
 
-#random-submit {
-    font-family: var(--main-font);
-    padding: .7rem .2rem .7rem .2rem;
-    font-size: 18px;
-    border-radius: 8px;
-    border: 3px solid #313131;
-    background-color: #2dff1a;
-    cursor: pointer;
+.settings-wrapper {
+    display: flex;
+    gap: 2.8rem;
+    padding: 2rem;
+    position: relative;
 }
+
+.settings-wrapper li {
+    list-style: none;
+
+}
+
+#sprite-set {
+    font-family: var(--main-font);
+    cursor: pointer;
+    text-decoration: none;
+
+    color: #EE1C23;
+}
+
+.sort-options li a {
+    font-family: var(--main-font);
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
+
+}
+
+.sort-p {
+    font-family: var(--main-font);
+    cursor: pointer;
+    text-decoration: none;
+    color: #EE1C23;
+}
+
+.sort-options {
+    position: absolute;
+    top: 3.5rem;
+    background-color: #611b12;
+    padding: 1rem;
+    border-radius: 5px;
+    display: none;
+
+}
+
+.settings-wrapper li:first-child:hover .sort-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.sort-options::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    background-color: #611b12;
+    width: 21px;
+    height: 21px;
+    transform: rotate(45deg);
+
+}
+
+.sort-hover {
+    font-family: var(--main-font);
+    cursor: pointer;
+    color: #313131;
+}
+
+
 
 
 
@@ -200,7 +268,7 @@ footer {
     display: none;
 }
 
-.find-button {
+.load-button {
     font-family: var(--main-font);
     margin: 2rem 5rem 2rem auto;
     display: none;
@@ -212,6 +280,6 @@ footer {
     cursor: pointer;
 }
 
-.find-button:hover {
+.load-button:hover {
     opacity: .8;
 }
