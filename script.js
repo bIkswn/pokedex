@@ -110,7 +110,12 @@ async function fetchData() {
             if (sortSwitch) {
 
                 for (let i = pokeCounter; i < pokeCounter + 12; i++) {
-                    fetchPokemonData(data.results[i])
+                    setTimeout(() => {
+
+                        fetchPokemonData(data.results[i])
+
+                    },i * 100);
+
                 }
 
                 pokeCounter += 12;
@@ -118,8 +123,14 @@ async function fetchData() {
             } else {
 
 
-                for (let i = pokeCounter; i > pokeCounter - 12; i--) {
-                    fetchPokemonData(data.results[i])
+                for (let i = 0; i < 12 ; i++) {
+
+                    let j = pokeCounter - i
+
+                 setTimeout(() => {
+                     fetchPokemonData(data.results[j])
+                 }, i * 100);  
+
                 }
 
                 pokeCounter -= 12;
@@ -352,12 +363,14 @@ setSprite.addEventListener('click', () => {
         sprite = "showdown"
         setSprite.innerText = "default sprite"
     }
-
+    card.innerHTML = ""
     setTimeout(fetchData, 1500);
 
-    card.innerHTML = ""
-    pokeCounter = 0;
 
-
+    if (!sortSwitch) {
+        pokeCounter = 1024;
+    } else {
+        pokeCounter = 0;
+    }
 
 })
