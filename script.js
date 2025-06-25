@@ -14,10 +14,11 @@ const randomBtn = document.getElementById('sort-random')
 const sortLH = document.getElementById('sort-lh')
 const sortHL = document.getElementById('sort-hl')
 
-
+const setSprite = document.getElementById('sprite-set');
 
 //default 
 let pokeCounter = 0;
+let test = 0;
 
 let searchOn = false;
 
@@ -31,7 +32,7 @@ let randomMode = false;
 let sortSwitch = true;
 
 //============================================== FIRST RUN
-setTimeout(fetchData, 2000)
+fetchData()
 
 
 sortLH.addEventListener('click', () => {
@@ -39,7 +40,7 @@ sortLH.addEventListener('click', () => {
     sortSwitch = true;
     randomMode = false;
     card.innerHTML = ''
-    setTimeout(fetchData, 1000)
+    fetchData()
 })
 
 sortHL.addEventListener('click', () => {
@@ -47,13 +48,13 @@ sortHL.addEventListener('click', () => {
     sortSwitch = false;
     randomMode = false;
     card.innerHTML = ''
-    setTimeout(fetchData, 1000)
+    fetchData()
 })
 
 randomBtn.addEventListener('click', () => {
     randomMode = true;
     card.innerHTML = ''
-    setTimeout(fetchData, 1000)
+    fetchData()
 })
 
 
@@ -89,14 +90,10 @@ async function fetchData() {
 
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
 
-
-
-        if (!response.ok) {
-            throw new Error(`ERROR status: ${response.status}`);
-        }
-
         //data
         const data = await response.json();
+
+       
 
 
 
@@ -114,7 +111,8 @@ async function fetchData() {
 
                         fetchPokemonData(data.results[i])
 
-                    },i * 100);
+
+                    }, (i - pokeCounter) * 150);
 
                 }
 
@@ -123,17 +121,22 @@ async function fetchData() {
             } else {
 
 
-                for (let i = 0; i < 12 ; i++) {
+                for (let i = 0; i < 12; i++) {
 
                     let j = pokeCounter - i
 
-                 setTimeout(() => {
-                     fetchPokemonData(data.results[j])
-                 }, i * 100);  
+
+                    setTimeout(() => {
+                        fetchPokemonData(data.results[j])
+                    }, i * 150);
+
+
 
                 }
 
                 pokeCounter -= 12;
+
+
 
             }
 
@@ -158,11 +161,14 @@ async function fetchData() {
    `
     footer.style.display = 'block'
 
-    // remove loading gif after data was loaded
-    loading.style.display = 'none'
+    setTimeout(() => {
+        // remove loading gif after data was loaded
+        loading.style.display = 'none'
 
-    //display back loading button
-    loadButton.style.display = 'block'
+        //display back loading button
+        loadButton.style.display = 'block'
+    }, 1000);
+
 
 }
 
@@ -352,9 +358,12 @@ searchInput.addEventListener('keydown', (e) => {
 
 
 let sprite = "official-artwork"
-const setSprite = document.getElementById('sprite-set');
+
 
 setSprite.addEventListener('click', () => {
+    setSprite.disabled = true;
+
+    card.innerHTML = ""
 
     if (sprite == "showdown") {
         sprite = "official-artwork"
@@ -363,8 +372,6 @@ setSprite.addEventListener('click', () => {
         sprite = "showdown"
         setSprite.innerText = "default sprite"
     }
-    card.innerHTML = ""
-    setTimeout(fetchData, 1500);
 
 
     if (!sortSwitch) {
@@ -373,4 +380,12 @@ setSprite.addEventListener('click', () => {
         pokeCounter = 0;
     }
 
+    setTimeout(fetchData, 1500);
+    setTimeout(() => {
+        setSprite.disabled = false;
+    }, 3200);
 })
+
+
+
+

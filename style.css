@@ -181,6 +181,12 @@ body {
     display: block;
     margin: 1rem auto auto auto;
     width: 200px;
+    /* filter: grayscale(100%); */
+    transition: all 0.3s ease;
+}
+
+.poke-info:hover {
+    filter: grayscale(0%);
 }
 
 

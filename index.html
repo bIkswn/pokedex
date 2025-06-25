@@ -40,27 +40,27 @@
                         <ul class="sort-options">
                             <!-- 1 -->
                             <li>
-                                <a href="#blank" id="sort-random">Dive into
-                                    grass..</a>
+                                <button href="#blank" id="sort-random">Dive into
+                                    grass..</button>
                             </li>
 
                             <!-- 2 -->
                             <li>
-                                <a id="sort-lh" href="#blank">ID : Lowest to Highest</a>
+                                <button id="sort-lh" href="#blank">ID : Lowest to Highest</button>
                             </li>
 
                             <!-- 3 -->
                             <li>
-                                <a id="sort-hl" href="#blank">ID : Highest to Lowest</a>
+                                <button id="sort-hl" href="#blank">ID : Highest to Lowest</button>
                             </li>
 
                         </ul>
                     </li>
 
                     <li>
-                        <a id="sprite-set" href="#blank">
+                        <button id="sprite-set" href="#blank">
                             showdown sprites
-                        </a>
+                        </button>
                     </li>
                 </ul>
 
@@ -77,7 +77,7 @@
                 <h2>Searching tall grass...</h2>
             </div>
 
-            <button onclick=" loader(); setTimeout(fetchData, 1500); " class="load-button" id="load-button">Load more
+            <button onclick=" loader(); fetchData(); " class="load-button" id="load-button">Load more
                 pok&eacute;mon</button>
 
         </div>
