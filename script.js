@@ -34,27 +34,71 @@ let sortSwitch = true;
 //============================================== FIRST RUN
 fetchData()
 
+const sortingOptionClick = document.getElementById('sort-p')
+const sortingOption = document.getElementById('sort-options')
+
+
+
+sortingOptionClick.addEventListener('click', () => {
+
+    sortingOption.classList.toggle('active')
+
+})
 
 sortLH.addEventListener('click', () => {
+
+    setSprite.disabled = true;
+    sortingOption.classList.toggle('active')
+
+
     pokeCounter = 0;
     sortSwitch = true;
     randomMode = false;
     card.innerHTML = ''
     fetchData()
+
+
+    setTimeout(() => {
+        setSprite.disabled = false;
+
+    }, 1000);
 })
 
 sortHL.addEventListener('click', () => {
+
+
+
+    setSprite.disabled = true;
+    sortingOption.classList.toggle('active')
+
     pokeCounter = 1024;
     sortSwitch = false;
     randomMode = false;
     card.innerHTML = ''
     fetchData()
+
+    setTimeout(() => {
+
+        setSprite.disabled = false;
+
+    }, 1000);
+
 })
 
 randomBtn.addEventListener('click', () => {
+
+
+    setSprite.disabled = true;
+    sortingOption.classList.toggle('active')
+
+
     randomMode = true;
     card.innerHTML = ''
     fetchData()
+
+    setTimeout(() => {
+        setSprite.disabled = false;
+    }, 1000);
 })
 
 
@@ -93,7 +137,7 @@ async function fetchData() {
         //data
         const data = await response.json();
 
-       
+
 
 
 
@@ -107,12 +151,9 @@ async function fetchData() {
             if (sortSwitch) {
 
                 for (let i = pokeCounter; i < pokeCounter + 12; i++) {
-                    setTimeout(() => {
-
-                        fetchPokemonData(data.results[i])
 
 
-                    }, (i - pokeCounter) * 150);
+                    fetchPokemonData(data.results[i])
 
                 }
 
@@ -125,11 +166,7 @@ async function fetchData() {
 
                     let j = pokeCounter - i
 
-
-                    setTimeout(() => {
-                        fetchPokemonData(data.results[j])
-                    }, i * 150);
-
+                    fetchPokemonData(data.results[j])
 
 
                 }
@@ -213,7 +250,7 @@ async function fetchPokemonData(pokemon) {
 
         const data = await response.json()
         // console.log(data);
-
+        console.log(data);
         generatePokemon(data);
 
     }
@@ -361,7 +398,11 @@ let sprite = "official-artwork"
 
 
 setSprite.addEventListener('click', () => {
+
+
     setSprite.disabled = true;
+
+
 
     card.innerHTML = ""
 
@@ -381,9 +422,11 @@ setSprite.addEventListener('click', () => {
     }
 
     setTimeout(fetchData, 1500);
+
     setTimeout(() => {
         setSprite.disabled = false;
-    }, 3200);
+    }, 3000);
+
 })
 
 
