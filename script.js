@@ -3,6 +3,7 @@
 // data = pokemon
 
 const card = document.querySelector('#poke-container')
+const sortByIcon = document.querySelector('.fa-solid.fa-angle-down')
 
 const loadButton = document.getElementById('load-button')
 const loading = document.getElementById('loading')
@@ -43,13 +44,21 @@ sortingOptionClick.addEventListener('click', () => {
 
     sortingOption.classList.toggle('active')
 
+    if (sortByIcon.classList.contains('fa-angle-down')) {
+        sortByIcon.className = 'fa-solid fa-angle-up'
+    } else {
+        sortByIcon.className = 'fa-solid fa-angle-down'
+    }
+
+
+
 })
 
 sortLH.addEventListener('click', () => {
 
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
-
+    sortByIcon.className = 'fa-solid fa-angle-down'
 
     pokeCounter = 0;
     sortSwitch = true;
@@ -70,7 +79,8 @@ sortHL.addEventListener('click', () => {
 
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
-
+    sortByIcon.className = 'fa-solid fa-angle-down'
+    
     pokeCounter = 1024;
     sortSwitch = false;
     randomMode = false;
@@ -87,7 +97,7 @@ sortHL.addEventListener('click', () => {
 
 randomBtn.addEventListener('click', () => {
 
-
+    sortByIcon.className = 'fa-solid fa-angle-down'
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
 
@@ -152,8 +162,10 @@ async function fetchData() {
 
                 for (let i = pokeCounter; i < pokeCounter + 12; i++) {
 
+                    setTimeout(() => {
+                        fetchPokemonData(data.results[i])
+                    }, (i - pokeCounter) * 50);
 
-                    fetchPokemonData(data.results[i])
 
                 }
 
@@ -166,7 +178,10 @@ async function fetchData() {
 
                     let j = pokeCounter - i
 
-                    fetchPokemonData(data.results[j])
+                    setTimeout(() => {
+                        fetchPokemonData(data.results[j])
+                    }, i * 50);
+
 
 
                 }
