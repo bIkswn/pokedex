@@ -62,6 +62,8 @@ body {
 .poke-search h1 {
     font-family: var(--main-font);
     font-size: 62px;
+    text-shadow: 0 0 5px #EE1C23;
+
 }
 
 .poke-search input {
@@ -282,3 +284,114 @@ footer {
 .load-button:hover {
     opacity: .8;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:1920px) {}
+
+@media (max-width:1680px) {}
+
+@media (max-width:1440px) {}
+
+@media (max-width:1366px) {}
+
+
+@media (max-width:1280px) {}
+
+@media (max-width:1024px) {
+    .main-sec {
+        padding: 2.5rem;
+    }
+
+    #poke-container {
+        grid-template-columns: repeat(4, auto);
+    }
+}
+
+
+
+@media (max-width:912px) {
+    .main-sec {
+        padding: 1.5rem;
+    }
+
+    #poke-container {
+        grid-template-columns: repeat(3, auto);
+    }
+
+}
+
+@media (max-width:768px) {}
+
+@media (max-width:640px) {
+    #poke-container {
+        grid-template-columns: repeat(2, auto);
+    }
+}
+
+@media (max-width:475px) {
+
+    .main-sec {
+        padding: .5rem;
+    }
+
+    #poke-container {
+        grid-template-columns: repeat(1, auto);
+    }
+
+    .poke-search input {
+        font-size: 15px;
+    }
+
+    .poke-search #search-submit {
+        font-size: 14px;
+    }
+
+    .poke-info img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .poke-info {
+        width: 250px;
+    }
+}
+
+@media (max-width:375px) {
+    .main-sec {
+        padding: 0;
+    }
+
+    #poke-container {
+        grid-template-columns: repeat(1, auto);
+    }
+
+
+
+    .poke-search input {
+        font-size: 13px;
+    }
+
+    .poke-search #search-submit {
+        font-size: 14px;
+    }
+
+
+}
+
+@media (max-width:320px) {}
