@@ -37,7 +37,7 @@ body {
 
 .main-sec {
 
-    padding: 8rem 8rem 0 8rem;
+    padding: 5rem 8rem 0 8rem;
 
 }
 
@@ -45,6 +45,7 @@ body {
     background-color: antiquewhite;
     padding: 1rem;
     border-radius: 10px;
+    min-height: 80vh;
 }
 
 .settings {
@@ -222,8 +223,7 @@ body {
 .type-flex {
     font-family: var(--main-font);
     display: flex;
-
-
+    align-items: center;
 }
 
 .type-flex li {
@@ -233,7 +233,7 @@ body {
     border-radius: 3px;
     line-height: 18px;
     margin: 0 1.5625% 0 0;
-    width: 30%;
+    width: 75px;
     float: left;
     text-transform: none;
     text-align: center;
@@ -287,9 +287,62 @@ footer {
 
 
 
+/* TAB */
+
+#pokeInfos {
+    margin: 5rem 8rem 0 8rem;
+
+    background: antiquewhite;
+    padding: 3rem;
+    border-radius: 10px;
+    min-height: 80vh;
+    font-family: var(--main-font);
+    display: flex;
+   gap: 2.5rem;
+}
+
+.pokeHead {
+    display: flex;
+    flex-direction: column;
+}
+
+.pokeHead img {
+    max-width: 320px;
+    background: #31313167;
+    border-radius: 12px;
+}
+
+.pokeHead h1 {
+    font-size: 50px;
+    color: #424242;
+}
+
+.pokeHead p {
+    color: #575757;
+    font-size: 25px;
+}
 
 
 
+.pokeDatas {
+    display: flex;
+    gap: 7rem;
+}
+
+.data1 h3 {
+    margin-bottom: 1.5rem;
+
+}
+
+.data2 h3 {
+    margin-bottom: 3.5rem;
+
+}
+
+.flexType {
+    display: flex;
+    gap: 5px;
+}
 
 
 

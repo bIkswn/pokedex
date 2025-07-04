@@ -19,8 +19,9 @@ const setSprite = document.getElementById('sprite-set');
 
 //default 
 let pokeCounter = 0;
-let test = 0;
 
+
+//default off
 let searchOn = false;
 
 // set pokedex from id 0 and so on at default
@@ -29,7 +30,7 @@ let firstRun = false;
 // random the pokedex
 let randomMode = false;
 
-// sort bool // default
+// sort bool // default L to H
 let sortSwitch = true;
 
 //============================================== FIRST RUN
@@ -61,6 +62,7 @@ sortLH.addEventListener('click', () => {
     sortByIcon.className = 'fa-solid fa-angle-down'
 
     pokeCounter = 0;
+    searchOn = false;
     sortSwitch = true;
     randomMode = false;
     card.innerHTML = ''
@@ -80,8 +82,9 @@ sortHL.addEventListener('click', () => {
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
     sortByIcon.className = 'fa-solid fa-angle-down'
-    
+
     pokeCounter = 1024;
+    searchOn = false;
     sortSwitch = false;
     randomMode = false;
     card.innerHTML = ''
@@ -101,7 +104,7 @@ randomBtn.addEventListener('click', () => {
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
 
-
+    searchOn = false;
     randomMode = true;
     card.innerHTML = ''
     fetchData()
@@ -145,7 +148,8 @@ async function fetchData() {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
 
         //data
-        const data = await response.json();
+        const pokemonData = await response.json();
+
 
 
 
@@ -154,22 +158,20 @@ async function fetchData() {
         //random 
         if (randomMode) {
             for (let i = pokeCounter; i < pokeCounter + 12; i++) {
-                fetchPokemonData(data.results[randomizer(1025, 1)])
+                fetchPokemonData(pokemonData.results[randomizer(1025, 1)])
             }
         } else {
 
             if (sortSwitch) {
 
-                for (let i = pokeCounter; i < pokeCounter + 12; i++) {
+                for (let i = pokeCounter; i < 1025; i++) {
 
                     setTimeout(() => {
-                        fetchPokemonData(data.results[i])
+                        fetchPokemonData(pokemonData.results[i])
                     }, (i - pokeCounter) * 50);
 
 
                 }
-
-                pokeCounter += 12;
 
             } else {
 
@@ -179,17 +181,13 @@ async function fetchData() {
                     let j = pokeCounter - i
 
                     setTimeout(() => {
-                        fetchPokemonData(data.results[j])
+                        fetchPokemonData(pokemonData.results[j])
                     }, i * 50);
-
-
 
                 }
 
                 pokeCounter -= 12;
-
-
-
+                
             }
 
 
@@ -224,6 +222,13 @@ async function fetchData() {
 
 }
 
+   searchInput.addEventListener('input', (e) => {
+
+            const input = e.target.value 
+            console.log(input)
+            
+        })
+
 async function searchData() {
     try {
         searchOn = true
@@ -232,41 +237,27 @@ async function searchData() {
         card.style.justifyContent = "space-around"
 
 
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${capitalizeFirstLetter(searchInput.value)}`)
-
-        const data = await response.json()
-        console.log(data)
         if (searchInput.value == "") {
-
             setTimeout(fetchData, 1500)
-
-        } else {
-            generatePokemon(data)
-            pokeCounter = 0
+            return
         }
 
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/`)
+        const pokemonData = await response.json()
+
+        const species = await fetch(pokemonData.species.url)
+        const speciesData = await species.json()
+
+     
 
 
-    }
-    catch (error) {
 
-    }
 
-}
+        generatePokemon(pokemonData, speciesData)
+        pokeCounter = 0
 
 
 
-async function fetchPokemonData(pokemon) {
-    const dataUrl = pokemon.url
-
-
-    try {
-        const response = await fetch(dataUrl)
-
-        const data = await response.json()
-        // console.log(data);
-        console.log(data);
-        generatePokemon(data);
 
     }
     catch (error) {
@@ -277,10 +268,42 @@ async function fetchPokemonData(pokemon) {
 
 
 
-async function generatePokemon(pokemon) {
+async function fetchPokemonData(pokemon) {
+    const dataUrl = pokemon.url
+
+
+
+    try {
+        const response = await fetch(dataUrl)
+        const pokemonData = await response.json()
+
+        const response1 = await fetch(pokemonData.species.url)
+        const speciesData = await response1.json()
+
+
+        console.log(speciesData);
+
+        generatePokemon(pokemonData, speciesData);
+
+
+    }
+    catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+
+async function generatePokemon(pokemon, species) {
 
     const pokeInfoBox = document.createElement('div')
     pokeInfoBox.classList.add('poke-info')
+
+
+    pokeInfoBox.addEventListener('click', () => {
+        generateTab(pokemon, species)
+    })
 
     const pokeSprite = document.createElement('img')
     pokeSprite.src = pokemon.sprites.other[`${sprite}`].front_default;
@@ -316,6 +339,9 @@ async function generatePokemon(pokemon) {
 
     pokeInfoBox.append(pokeSprite, pokeId, pokeName, pokeTypeFlex)
     card.append(pokeInfoBox);
+
+
+
 
 }
 
@@ -376,7 +402,7 @@ function getTypes(pokemon, typeList) {
         }
 
 
-
+        
         typeList.append(pokeType)
     });
 
@@ -444,6 +470,23 @@ setSprite.addEventListener('click', () => {
 
 })
 
+const mainSec = document.getElementById('main-sec')
+
+function generateTab(pokemon, species) {
+
+    localStorage.setItem('pokemonData', JSON.stringify(pokemon))
+    localStorage.setItem('speciesData', JSON.stringify(species))
+
+
+    window.open('poke_infos.html', '_blank')
+
+
+    generateInfos()
+
+
+
+
+}
 
 
 
