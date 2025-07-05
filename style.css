@@ -345,6 +345,10 @@ footer {
 }
 
 
+#loadCounter {
+    font-family: var(--main-font);
+  
+}
 
 
 

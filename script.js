@@ -20,6 +20,8 @@ const setSprite = document.getElementById('sprite-set');
 //default 
 let pokeCounter = 0;
 
+allPokeData = []
+randomizedData = []
 
 //default off
 let searchOn = false;
@@ -66,7 +68,7 @@ sortLH.addEventListener('click', () => {
     sortSwitch = true;
     randomMode = false;
     card.innerHTML = ''
-    fetchData()
+    displayPokemons()
 
 
     setTimeout(() => {
@@ -77,18 +79,18 @@ sortLH.addEventListener('click', () => {
 
 sortHL.addEventListener('click', () => {
 
-
+    loader()
 
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
     sortByIcon.className = 'fa-solid fa-angle-down'
 
-    pokeCounter = 1024;
+    pokeCounter = 1025;
     searchOn = false;
     sortSwitch = false;
     randomMode = false;
     card.innerHTML = ''
-    fetchData()
+    displayPokemons()
 
     setTimeout(() => {
 
@@ -96,10 +98,13 @@ sortHL.addEventListener('click', () => {
 
     }, 1000);
 
+    removeLoader()
+
 })
 
 randomBtn.addEventListener('click', () => {
-
+    loader();
+    randomizedData = [...allPokeData].sort(() => Math.random() - 0.5)
     sortByIcon.className = 'fa-solid fa-angle-down'
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
@@ -107,15 +112,35 @@ randomBtn.addEventListener('click', () => {
     searchOn = false;
     randomMode = true;
     card.innerHTML = ''
-    fetchData()
+    displayPokemons()
 
     setTimeout(() => {
         setSprite.disabled = false;
     }, 1000);
+
+    removeLoader()
 })
 
 
 
+
+loadButton.addEventListener('click', () => {
+    loader()
+
+    if (sortSwitch) {
+        pokeCounter += 12
+    } else {
+        pokeCounter -= 12;
+    }
+
+
+    setTimeout(() => {
+        displayPokemons()
+    }, 1000);
+
+    removeLoader()
+
+})
 
 function loader() {
 
@@ -124,8 +149,18 @@ function loader() {
 
     // remove load button while data loading
     loadButton.style.display = 'none'
+
 }
 
+function removeLoader() {
+    setTimeout(() => {
+        // remove loading gif after data was loaded
+        loading.style.display = 'none'
+
+        //display loading button
+        loadButton.style.display = 'block'
+    }, 1000);
+}
 
 
 
@@ -134,6 +169,7 @@ async function fetchData() {
 
     try {
 
+        loader()
         card.style.justifyContent = "center"
 
 
@@ -153,47 +189,11 @@ async function fetchData() {
 
 
 
-
-
-        //random 
-        if (randomMode) {
-            for (let i = pokeCounter; i < pokeCounter + 12; i++) {
-                fetchPokemonData(pokemonData.results[randomizer(1025, 1)])
-            }
-        } else {
-
-            if (sortSwitch) {
-
-                for (let i = pokeCounter; i < 1025; i++) {
-
-                    setTimeout(() => {
-                        fetchPokemonData(pokemonData.results[i])
-                    }, (i - pokeCounter) * 50);
-
-
-                }
-
-            } else {
-
-
-                for (let i = 0; i < 12; i++) {
-
-                    let j = pokeCounter - i
-
-                    setTimeout(() => {
-                        fetchPokemonData(pokemonData.results[j])
-                    }, i * 50);
-
-                }
-
-                pokeCounter -= 12;
-                
-            }
+        await loadAllPokemonData(pokemonData.results);
 
 
 
-        }
-
+        displayPokemons()
 
 
 
@@ -202,6 +202,9 @@ async function fetchData() {
     catch (error) {
         console.error(error)
     }
+
+
+
 
     // display footer
     const footer = document.getElementById('footer');
@@ -222,49 +225,86 @@ async function fetchData() {
 
 }
 
-   searchInput.addEventListener('input', (e) => {
 
-            const input = e.target.value 
-            console.log(input)
-            
-        })
-
-async function searchData() {
-    try {
-        searchOn = true
-
-        card.innerHTML = ""
-        card.style.justifyContent = "space-around"
+async function loadAllPokemonData(pokemonList) {
 
 
-        if (searchInput.value == "") {
-            setTimeout(fetchData, 1500)
-            return
+    const loadTotal = pokemonList.length
+    let totalLoaded = 0
+
+    const loadCounterText = document.getElementById('loadCounter')
+
+    const list = pokemonList.map(async (pokemon) => {
+        try {
+            const response = await fetch(pokemon.url)
+            const pokemonData = await response.json()
+
+            const response1 = await fetch(pokemonData.species.url)
+            const speciesData = await response1.json()
+
+            totalLoaded++;
+            loadCounterText.innerText = `Loaded Pokemons: ${totalLoaded} / ${loadTotal}`
+
+            return {
+                pokemon: pokemonData,
+                species: speciesData
+            }
+
+        } catch (error) {
+            console.error(error)
+            return null
         }
+    })
 
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/`)
-        const pokemonData = await response.json()
-
-        const species = await fetch(pokemonData.species.url)
-        const speciesData = await species.json()
-
-     
-
-
-
-
-        generatePokemon(pokemonData, speciesData)
-        pokeCounter = 0
-
-
-
-
-    }
-    catch (error) {
-        console.log(error)
-    }
+    test = await Promise.all(list)
+    allPokeData = test
 
 }
+
+//    searchInput.addEventListener('input', (e) => {
+
+//             const input = e.target.value 
+//             console.log(input)
+
+//         })
+
+function displayPokemons() {
+
+    pokemonsToShow = []
+
+
+
+
+    if (randomMode) {
+
+        pokemonsToShow = randomizedData.slice(pokeCounter, pokeCounter + 12)
+
+
+    } else if (sortSwitch) {
+        pokemonsToShow = allPokeData.slice(pokeCounter, pokeCounter + 12)
+
+    } else {
+
+        if (pokeCounter < 0) {
+            alert("tite")
+        } else {
+            const startIndex = Math.max(0, pokeCounter - 12)
+            pokemonsToShow = allPokeData.slice(startIndex, pokeCounter).reverse()
+        }
+
+
+
+    }
+
+
+
+    pokemonsToShow.forEach(pokemons => {
+
+        generatePokemon(pokemons.pokemon, pokemons.species)
+    });
+
+}
+
 
 
 
@@ -402,7 +442,7 @@ function getTypes(pokemon, typeList) {
         }
 
 
-        
+
         typeList.append(pokeType)
     });
 
@@ -416,13 +456,6 @@ function capitalizeFirstLetter(word) {
     return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
-//randomized number
-
-const randomizer = (max, min) => {
-
-    const randomizedNum = Math.floor(Math.random() * (max - min + 1) + min)
-    return randomizedNum
-}
 
 // enter button will hit search
 searchInput.addEventListener('keydown', (e) => {
@@ -457,12 +490,12 @@ setSprite.addEventListener('click', () => {
 
 
     if (!sortSwitch) {
-        pokeCounter = 1024;
+        pokeCounter = 1025;
     } else {
         pokeCounter = 0;
     }
 
-    setTimeout(fetchData, 1500);
+    setTimeout(displayPokemons(), 1500);
 
     setTimeout(() => {
         setSprite.disabled = false;
