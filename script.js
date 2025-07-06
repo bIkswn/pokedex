@@ -129,7 +129,7 @@ randomBtn.addEventListener('click', () => {
 loadButton.addEventListener('click', () => {
     loader()
 
-    if (sortSwitch) {
+    if (sortSwitch || randomMode) {
         pokeCounter += 12
     } else {
         pokeCounter -= 12;
@@ -278,17 +278,18 @@ function displayPokemons() {
 
 
     if (sprites) {
+
         if (randomMode) {
             pokemonsToShow = randomizedData.slice(0, counter + 12)
-            sprites = false
+            
         }
         else if (sortSwitch) {
             pokemonsToShow = allPokeData.slice(0, counter + 12)
-            sprites = false
+         
         } else {
 
             pokemonsToShow = allPokeData.slice(counter - 12, allPokeData.length).reverse()
-            sprites = false
+            
         }
 
     } else {
@@ -320,7 +321,7 @@ function displayPokemons() {
 
 
 
-
+sprites = false;
 
 
     pokemonsToShow.forEach(pokemons => {
@@ -330,7 +331,7 @@ function displayPokemons() {
 
     console.log("pokecounter " + pokeCounter)
     console.log("counter " + counter)
-    console.log("counter " + allPokeData.length)
+
 }
 
 
@@ -517,9 +518,11 @@ setSprite.addEventListener('click', () => {
 
         sprite = "official-artwork"
 
-
+counter = pokeCounter
 
         if (sortSwitch || randomMode) {
+
+            
 
             if (counter != pokeCounter) {
                 counter += 12
