@@ -53,8 +53,6 @@ sortingOptionClick.addEventListener('click', () => {
         sortByIcon.className = 'fa-solid fa-angle-down'
     }
 
-
-
 })
 
 sortLH.addEventListener('click', () => {
@@ -85,7 +83,7 @@ sortHL.addEventListener('click', () => {
     sortingOption.classList.toggle('active')
     sortByIcon.className = 'fa-solid fa-angle-down'
 
-    pokeCounter = 1025;
+    pokeCounter = allPokeData.length;
     searchOn = false;
     sortSwitch = false;
     randomMode = false;
@@ -104,10 +102,14 @@ sortHL.addEventListener('click', () => {
 
 randomBtn.addEventListener('click', () => {
     loader();
+
     randomizedData = [...allPokeData].sort(() => Math.random() - 0.5)
+
     sortByIcon.className = 'fa-solid fa-angle-down'
     setSprite.disabled = true;
     sortingOption.classList.toggle('active')
+
+    pokeCounter = 0;
 
     searchOn = false;
     randomMode = true;
@@ -275,26 +277,49 @@ function displayPokemons() {
 
 
 
-    if (randomMode) {
+    if (sprites) {
+        if (randomMode) {
+            pokemonsToShow = randomizedData.slice(0, counter + 12)
+            sprites = false
+        }
+        else if (sortSwitch) {
+            pokemonsToShow = allPokeData.slice(0, counter + 12)
+            sprites = false
+        } else {
 
-        pokemonsToShow = randomizedData.slice(pokeCounter, pokeCounter + 12)
-
-
-    } else if (sortSwitch) {
-        pokemonsToShow = allPokeData.slice(pokeCounter, pokeCounter + 12)
+            pokemonsToShow = allPokeData.slice(counter - 12, allPokeData.length).reverse()
+            sprites = false
+        }
 
     } else {
 
-        if (pokeCounter < 0) {
-            alert("tite")
-        } else {
-            const startIndex = Math.max(0, pokeCounter - 12)
-            pokemonsToShow = allPokeData.slice(startIndex, pokeCounter).reverse()
+        // random
+        if (randomMode) {
+
+            pokemonsToShow = randomizedData.slice(pokeCounter, pokeCounter + 12)
+
         }
+        // low to high
+        else if (sortSwitch) {
 
+            pokemonsToShow = allPokeData.slice(pokeCounter, pokeCounter + 12)
 
+        }
+        // High to Low
+        else {
 
+            if (pokeCounter < 0) {
+                alert("tite")
+            } else {
+                const startIndex = Math.max(0, pokeCounter - 12)
+                pokemonsToShow = allPokeData.slice(startIndex, pokeCounter).reverse()
+            }
+
+        }
     }
+
+
+
 
 
 
@@ -303,6 +328,9 @@ function displayPokemons() {
         generatePokemon(pokemons.pokemon, pokemons.species)
     });
 
+    console.log("pokecounter " + pokeCounter)
+    console.log("counter " + counter)
+    console.log("counter " + allPokeData.length)
 }
 
 
@@ -470,10 +498,15 @@ searchInput.addEventListener('keydown', (e) => {
 
 let sprite = "official-artwork"
 
+let counter = 0
+
+let sprites = false
 
 setSprite.addEventListener('click', () => {
 
 
+
+    sprites = true
     setSprite.disabled = true;
 
 
@@ -481,25 +514,54 @@ setSprite.addEventListener('click', () => {
     card.innerHTML = ""
 
     if (sprite == "showdown") {
+
         sprite = "official-artwork"
+
+
+
+        if (sortSwitch || randomMode) {
+
+            if (counter != pokeCounter) {
+                counter += 12
+            }
+
+        } else {
+
+            if (counter != pokeCounter) {
+                counter -= 12
+            }
+
+        }
+
+
         setSprite.innerText = "showdown sprite"
     } else {
         sprite = "showdown"
+
+
+
+        counter = pokeCounter
+
+
         setSprite.innerText = "default sprite"
     }
 
+    // if (randomMode) {
+    //     pokeCounter = 0
+    // } else {
 
-    if (!sortSwitch) {
-        pokeCounter = 1025;
-    } else {
-        pokeCounter = 0;
-    }
+    //     if (sortSwitch) {
+    //         pokeCounter = 0
+    //     } else {
+    //         pokeCounter = 1025
+    //     }
+    // }
 
     setTimeout(displayPokemons(), 1500);
 
     setTimeout(() => {
         setSprite.disabled = false;
-    }, 3000);
+    }, 1500);
 
 })
 

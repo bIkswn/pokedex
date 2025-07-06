@@ -69,14 +69,8 @@ function getAbilities() {
 
     pokemon.abilities.forEach(x => {
 
-
-
-
         pokemonAbilities.push(capitalizeFirstLetter(x.ability.name))
-
     });
-
-
 
     return pokemonAbilities.join(', ')
 

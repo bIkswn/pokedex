@@ -25,6 +25,11 @@
     box-sizing: border-box;
 }
 
+.logs {
+    font-family: var(--main-font);
+    background: #FFFFFF;
+}
+
 :root {
 
     --main-font: "Flexo-Demi", arial, sans-serif;
