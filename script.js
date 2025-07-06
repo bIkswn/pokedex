@@ -22,6 +22,7 @@ let pokeCounter = 0;
 
 allPokeData = []
 randomizedData = []
+let pokemonsToShow = []
 
 //default off
 let searchOn = false;
@@ -41,7 +42,29 @@ fetchData()
 const sortingOptionClick = document.getElementById('sort-p')
 const sortingOption = document.getElementById('sort-options')
 
+const tite = document.getElementById('')
 
+
+searchInput.addEventListener('input', (e) => {
+
+    let input = e.target.value.toLowerCase();
+
+
+    const filteredPokemons = allPokeData.filter(data =>
+        data.pokemon.name.includes(input));
+
+    card.innerHTML = '';
+
+
+    pokemonsToShow = filteredPokemons.slice(0, 12)
+
+    pokemonsToShow.forEach(data => {
+        generatePokemon(data.pokemon, data.species);
+    });
+
+    console.log(input);
+
+});
 
 sortingOptionClick.addEventListener('click', () => {
 
@@ -263,16 +286,10 @@ async function loadAllPokemonData(pokemonList) {
 
 }
 
-//    searchInput.addEventListener('input', (e) => {
-
-//             const input = e.target.value 
-//             console.log(input)
-
-//         })
 
 function displayPokemons() {
 
-    pokemonsToShow = []
+
 
 
 
@@ -281,15 +298,15 @@ function displayPokemons() {
 
         if (randomMode) {
             pokemonsToShow = randomizedData.slice(0, counter + 12)
-            
+
         }
         else if (sortSwitch) {
             pokemonsToShow = allPokeData.slice(0, counter + 12)
-         
+
         } else {
 
             pokemonsToShow = allPokeData.slice(counter - 12, allPokeData.length).reverse()
-            
+
         }
 
     } else {
@@ -321,7 +338,7 @@ function displayPokemons() {
 
 
 
-sprites = false;
+    sprites = false;
 
 
     pokemonsToShow.forEach(pokemons => {
@@ -366,8 +383,12 @@ async function fetchPokemonData(pokemon) {
 
 async function generatePokemon(pokemon, species) {
 
+
+
+
     const pokeInfoBox = document.createElement('div')
     pokeInfoBox.classList.add('poke-info')
+    pokeInfoBox.id = `etits`
 
 
     pokeInfoBox.addEventListener('click', () => {
@@ -518,11 +539,11 @@ setSprite.addEventListener('click', () => {
 
         sprite = "official-artwork"
 
-counter = pokeCounter
+        counter = pokeCounter
 
         if (sortSwitch || randomMode) {
 
-            
+
 
             if (counter != pokeCounter) {
                 counter += 12
