@@ -580,7 +580,20 @@ footer {
 
 }
 
-@media (max-width:768px) {}
+@media (max-width:768px) {
+
+    .pokeHead {
+        max-height: 492px;
+    }
+
+    .pokeHead img {
+        max-width: 300px;
+    }
+
+    .pokeHead h1 {
+        font-size: 44px;
+    }
+}
 
 @media (max-width:640px) {
     #poke-container {
@@ -592,13 +605,15 @@ footer {
         padding: .8rem;
     }
 
-    .settings-wrapper{
+    .settings-wrapper {
         padding: .9rem;
         gap: 1rem;
     }
 }
 
 @media (max-width:475px) {
+
+
 
     #pokeInfos {
         margin: 1rem;
@@ -648,7 +663,7 @@ footer {
         grid-template-columns: repeat(1, auto);
     } */
 
-        .poke-info img {
+    .poke-info img {
         width: 150px;
         height: 150px;
     }
@@ -656,10 +671,10 @@ footer {
     .poke-info {
         width: 150px;
     }
-    
+
 
     .type-flex li {
-            font-size: 9px;
+        font-size: 9px;
 
     }
 
