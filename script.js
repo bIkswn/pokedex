@@ -215,7 +215,7 @@ async function fetchData() {
             randomMode = false;
         }
 
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
 
         //data
         const pokemonData = await response.json();
