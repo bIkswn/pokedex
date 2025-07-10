@@ -621,12 +621,12 @@ footer {
     }
 
     .poke-info img {
-        width: 250px;
-        height: 250px;
+        width: 175px;
+        height: 175px;
     }
 
     .poke-info {
-        width: 250px;
+        width: 175px;
     }
 
     .type-flex li {
@@ -648,15 +648,15 @@ footer {
         grid-template-columns: repeat(1, auto);
     } */
 
-    
-    .poke-info img {
-        width: 100px;
-        height: 100px;
+        .poke-info img {
+        width: 150px;
+        height: 150px;
     }
 
     .poke-info {
-        width: 110px;
+        width: 150px;
     }
+    
 
     .type-flex li {
             font-size: 9px;
