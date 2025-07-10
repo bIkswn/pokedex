@@ -650,12 +650,12 @@ footer {
 
     
     .poke-info img {
-        width: 151px;
-        height: 151px;
+        width: 100px;
+        height: 100px;
     }
 
     .poke-info {
-        width: 151px;
+        width: 110px;
     }
 
     .type-flex li {
