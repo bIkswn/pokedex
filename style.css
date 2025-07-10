@@ -591,6 +591,11 @@ footer {
         flex-direction: column;
         padding: .8rem;
     }
+
+    .settings-wrapper{
+        padding: .9rem;
+        gap: 1rem;
+    }
 }
 
 @media (max-width:475px) {
@@ -603,9 +608,9 @@ footer {
         padding: .5rem;
     }
 
-    #poke-container {
-        grid-template-columns: repeat(1, auto);
-    }
+    /* #poke-container {
+        grid-template-columns: repeat(2, auto);
+    } */
 
     .poke-search input {
         font-size: 15px;
@@ -623,6 +628,10 @@ footer {
     .poke-info {
         width: 250px;
     }
+
+    .type-flex li {
+        width: 60px;
+    }
 }
 
 @media (max-width:375px) {
@@ -635,8 +644,23 @@ footer {
         padding: 0;
     }
 
-    #poke-container {
+    /* #poke-container {
         grid-template-columns: repeat(1, auto);
+    } */
+
+    
+    .poke-info img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .poke-info {
+        width: 150px;
+    }
+
+    .type-flex li {
+            font-size: 9px;
+
     }
 
 

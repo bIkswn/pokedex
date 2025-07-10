@@ -244,7 +244,7 @@ async function fetchData() {
     const footer = document.getElementById('footer');
 
     footer.innerHTML = `
-   <p>Footer</p>
+   <p>@anorekarl</p>
    `
     footer.style.display = 'block'
 
