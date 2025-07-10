@@ -76,7 +76,11 @@ body {
     padding: .7rem 1.2rem .7rem .2rem;
     font-size: 18px;
     border-radius: 8px;
-    border: 3px solid #313131;
+    background: none;
+   border-bottom: none;
+   border-top: none;
+   border-right: none;
+   border-left: none;
 }
 
 .poke-search #search-submit {
@@ -543,12 +547,9 @@ footer {
 
     #stats {
         padding: .5rem;
-        width: 300px;
+        width: 330px;
     }
 
-    .statBox {
-        max-width: 95px;
-    }
 
     #pokeInfos {
         min-height: auto;
@@ -576,11 +577,28 @@ footer {
         grid-template-columns: repeat(3, auto);
     }
 
+    .statBox {
+        max-width: 100px;
+    }
+
+     .statBox {
+        max-width: 137px;
+    }
 
 
 }
 
 @media (max-width:768px) {
+
+
+    
+    .statBox {
+        max-width: 128px;
+    }
+
+}
+
+@media (max-width:640px) {
 
     .pokeHead {
         max-height: 492px;
@@ -593,9 +611,7 @@ footer {
     .pokeHead h1 {
         font-size: 44px;
     }
-}
 
-@media (max-width:640px) {
     #poke-container {
         grid-template-columns: repeat(2, auto);
     }
@@ -615,8 +631,13 @@ footer {
 
 
 
+    .statBox {
+        max-width: 125px;
+    }
+
+
     #pokeInfos {
-        margin: 1rem;
+        margin: 0;
     }
 
     .main-sec {
@@ -651,8 +672,13 @@ footer {
 
 @media (max-width:375px) {
 
+
+    .statBox {
+        max-width: 105px;
+    }
+
     #pokeInfos {
-        margin: .5rem;
+        margin: .2rem;
     }
 
     .main-sec {
