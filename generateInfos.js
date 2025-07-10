@@ -1,5 +1,4 @@
 
-
 const pokemon = JSON.parse(localStorage.getItem('pokemonData'))
 const species = JSON.parse(localStorage.getItem('speciesData'))
 
@@ -18,33 +17,123 @@ function generateInfos() {
                 <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="">
                 <h1 class="pokeName">${capitalizeFirstLetter(pokemon.name)}</h1>
                 <p class="pokeID">${getID()}</p>
+                 <h3 class="flexType">
+
+                            <ul id="typeFlex"></ul>
+                        </h3>
             </div>
+
+
+     <div class="pokeDatas">
+
+
+
+            <div class="batch-1">
+   <h3 class="flavorText">
+   ${capitalizeFirstLetter(pokemon.name)}
+   <br>
+   ${getFlavorText()}
+   </h3>
+            </div>
+
+            <div class="batch-2">
+
+
+
+                <div class="basic-stats">
+
+                    <div class="data1">
+                       <p>Profile</p>
+                        <h3>height: ${computeHeight()}</h3>
+                        <h3>weight: ${computeWeight()}</h3>
+                        <h3>category: ${getCategory()}</h3>
+                        <h3 class="genderText">gender: ${getGender()} </h3>
+                        <h3>abilities: ${getAbilities()}</h3>
+                       
+                    </div>
+
+
+                </div>
+
+                
+                <div class="" id="stats">
+                    <p>Stats</p>
+
+                </div>
+
+               
+
+            </div>
+        </div>
+
+    </div>
 
            
 
-            <div class="pokeDatas">
+ 
 
-                <div class="data1">
-                    <h3>height: ${computeHeight()}</h3>
-                    <h3>weight: ${computeWeight()}</h3>
-                    <h3>category: ${getCategory()}</h3>
-                    <h3>gender: ${getGender()} </h3>
-                    <h3>abilities: ${getAbilities()}</h3>
-                </div>
-
-                <div class="data2">
-                    <h3 class="flexType">types:<ul class="type-flex" id="typeFlex"></ul></h3>
-                    <h3>weaknesses:</h3>
-                    <h3>versions:</h3>
-                </div>
-
-            </div>
+              
 
 `
 
     const typesList = document.getElementById('typeFlex');
     getTypes(pokemon, typesList)
-    
+
+    getStats()
+
+}
+
+function getFlavorText() {
+
+    const v9 = species.flavor_text_entries.find(entry =>
+        entry.version.url.includes("version/22")
+    )
+
+    if (v9) {
+        return v9.flavor_text
+    } else {
+        return "tite"
+    }
+
+}
+
+
+
+
+function getStats() {
+    const statsContainer = document.getElementById('stats')
+
+    const statsObject = {}
+    pokemon.stats.forEach(stats => {
+
+        statsObject[stats.stat.name] = stats.base_stat;
+
+
+    });
+
+
+    Object.entries(statsObject).forEach(([statName, statValue]) => {
+        const statsBox = document.createElement('div');
+        statsBox.classList.add('statBox')
+        statsBox.innerText = `${capitalizeFirstLetter(statName)}: `
+
+
+
+
+        const baseProg = document.createElement('div')
+        baseProg.classList.add('base-progress')
+
+        const mainProg = document.createElement('div')
+        mainProg.classList.add('progress')
+
+        mainProg.style.width = `${statValue}%`
+        mainProg.innerText = `${statValue}`
+
+        statsBox.append(baseProg, mainProg)
+        statsContainer.append(statsBox)
+
+    })
+
 }
 
 function getID() {
@@ -122,7 +211,7 @@ function getCategory() {
 
     const category = species.genera.find(x => x.language.name === "en")
 
-    return category ? category.genus : "Unknown"
+    return category ? category.genus.replace('Pokémon', '') : "Unknown"
 
 }
 
@@ -132,10 +221,14 @@ function getGender() {
     if (gender === -1) {
         return "Unknown"
     } else if (gender === 0) {
-        return "♂"
+        return `<i style="color: #3498db; font-size: 30px;" class="fa-solid fa-mars"></i> `
     } else if (gender === 8) {
-        return "♀"
+        return `
+        <i style="color: #C70039; font-size: 30px;" class="fa-solid fa-venus"></i>`
     } else {
-        return "♂ ♀"
+        return `<i style="color: #C70039; font-size: 30px;" class="fa-solid fa-mars"></i> 
+
+        <i style="color: #3498db; font-size: 30px;" class="fa-solid fa-venus"></i>`
     }
 }
+

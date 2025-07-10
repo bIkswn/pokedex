@@ -47,24 +47,33 @@ const tite = document.getElementById('')
 
 searchInput.addEventListener('input', (e) => {
 
-    let input = e.target.value.toLowerCase();
+    let input = e.target.value.toLowerCase()
+
+    const filteredPokemons = allPokeData.filter(pokemons => pokemons.pokemon.name.includes(input));
+
+    
+        card.innerHTML = ''
+
+        pokemonsToShow = filteredPokemons.slice(0, 12)
+
+        if (input !== '') {
+            loadButton.style.display = ' none'
+        } else {
+            loadButton.style.display = ' block'
+        }
+
+        pokemonsToShow.forEach(poke => {
+
+            generatePokemon(poke.pokemon, poke.species)
+
+        });
 
 
-    const filteredPokemons = allPokeData.filter(data =>
-        data.pokemon.name.includes(input));
 
-    card.innerHTML = '';
-
-
-    pokemonsToShow = filteredPokemons.slice(0, 12)
-
-    pokemonsToShow.forEach(data => {
-        generatePokemon(data.pokemon, data.species);
-    });
-
-    console.log(input);
 
 });
+
+
 
 sortingOptionClick.addEventListener('click', () => {
 
@@ -206,7 +215,7 @@ async function fetchData() {
             randomMode = false;
         }
 
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100`);
 
         //data
         const pokemonData = await response.json();
@@ -515,19 +524,11 @@ searchInput.addEventListener('keydown', (e) => {
 })
 
 
-
-
-
 let sprite = "official-artwork"
-
 let counter = 0
-
 let sprites = false
 
 setSprite.addEventListener('click', () => {
-
-
-
     sprites = true
     setSprite.disabled = true;
 
@@ -591,19 +592,16 @@ setSprite.addEventListener('click', () => {
 
 const mainSec = document.getElementById('main-sec')
 
+
 function generateTab(pokemon, species) {
 
+    //store data to local storage
     localStorage.setItem('pokemonData', JSON.stringify(pokemon))
     localStorage.setItem('speciesData', JSON.stringify(species))
 
-
+    // open new window (poke_infos.html)
     window.open('poke_infos.html', '_blank')
-
-
     generateInfos()
-
-
-
 
 }
 
