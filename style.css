@@ -72,15 +72,25 @@ body {
 
 }
 
-.poke-search input {
-    padding: .7rem 1.2rem .7rem .2rem;
-    font-size: 18px;
-    border-radius: 8px;
-    background: none;
-   border-bottom: none;
-   border-top: none;
-   border-right: none;
-   border-left: none;
+
+#poke-finder {
+    margin: .5rem 2rem;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.2s;
+
+    box-shadow: none;
+    width: 60%
+}
+
+#poke-finder:focus {
+    border-bottom: 2px solid #065fd4;
+
 }
 
 .poke-search #search-submit {
@@ -143,6 +153,7 @@ body {
     display: none;
 }
 
+
 #sort-options.active {
 
     display: flex;
@@ -157,8 +168,56 @@ body {
 }
 
 
+/* sort by region */
 
+#sort-region {
+    list-style: none;
+    font-family: var(--main-font);
+    cursor: pointer;
+    text-decoration: none;
+    color: #EE1C23;
 
+}
+
+#sort-by-region {
+    position: absolute;
+    top: 3.5rem;
+
+    display: none;
+    flex-direction: column;
+    z-index: 99;
+
+    align-items: center;
+    justify-items: center;
+}
+
+#sort-by-region.active {
+    display: flex;
+}
+
+#sort-by-region li:hover {
+    background-color: #a8a8a8;
+}
+
+#sort-by-region li a {
+    font-family: var(--main-font);
+    cursor: pointer;
+    color: #242424;
+
+    width: 100%;
+    text-decoration: none;
+    font-size: smaller;
+    padding: .4rem;
+
+}
+
+#sort-by-region li {
+    width: 100%;
+    padding: .6rem;
+    background-color: #eeeeee;
+    border: 1px solid rgb(73, 73, 73);
+    text-align: center;
+}
 
 
 .poke-name {
@@ -473,8 +532,22 @@ footer {
     color: #FFF9ED;
 }
 
+.ident {
+    font-family: var(--main-font);
+
+}
 
 
+.empty-search {
+    font-family: var(--main-font);
+    font-size: 25px;
+}
+
+.bottom-display {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+}
 
 @media (max-width:1920px) {}
 
@@ -581,7 +654,7 @@ footer {
         max-width: 100px;
     }
 
-     .statBox {
+    .statBox {
         max-width: 137px;
     }
 
@@ -591,7 +664,7 @@ footer {
 @media (max-width:768px) {
 
 
-    
+
     .statBox {
         max-width: 128px;
     }
@@ -628,6 +701,14 @@ footer {
 }
 
 @media (max-width:475px) {
+
+     .bottom-display {
+        padding: .9rem;
+    }
+
+    #poke-finder {
+        margin: 0 .5rem;
+    }
 
 
 
@@ -714,7 +795,7 @@ footer {
         font-size: 14px;
     }
 
-
+   
 }
 
 @media (max-width:320px) {}

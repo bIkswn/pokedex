@@ -5,6 +5,7 @@
 const card = document.querySelector('#poke-container')
 const sortByIcon = document.querySelector('.fa-solid.fa-angle-down')
 
+
 const loadButton = document.getElementById('load-button')
 const loading = document.getElementById('loading')
 const searchInput = document.getElementById('poke-finder');
@@ -14,6 +15,14 @@ const submitBtn = document.getElementById('search-submit')
 const randomBtn = document.getElementById('sort-random')
 const sortLH = document.getElementById('sort-lh')
 const sortHL = document.getElementById('sort-hl')
+
+const sortKanto = document.getElementById('kanto')
+const sortJohto = document.getElementById('johto')
+const sortHoenn = document.getElementById('hoenn')
+const sortSinnoh = document.getElementById('sinnoh')
+const sortUnova = document.getElementById('unova')
+const sortKalos = document.getElementById('kalos')
+
 
 const setSprite = document.getElementById('sprite-set');
 
@@ -42,31 +51,50 @@ fetchData()
 const sortingOptionClick = document.getElementById('sort-p')
 const sortingOption = document.getElementById('sort-options')
 
-const tite = document.getElementById('')
 
+
+//search function
 
 searchInput.addEventListener('input', (e) => {
 
     let input = e.target.value.toLowerCase()
 
-    const filteredPokemons = allPokeData.filter(pokemons => pokemons.pokemon.name.includes(input));
+    const filteredPokemons = allPokeData.filter(pokemons => {
+        const pokemonSearch = pokemons.pokemon.name.includes(input)
+        const idSearch = pokemons.pokemon.id.toString().includes(input)
+      
 
-    
-        card.innerHTML = ''
+        return pokemonSearch || idSearch 
 
-        pokemonsToShow = filteredPokemons.slice(0, 12)
+    });
 
-        if (input !== '') {
-            loadButton.style.display = ' none'
-        } else {
-            loadButton.style.display = ' block'
-        }
 
-        pokemonsToShow.forEach(poke => {
+    card.innerHTML = ''
 
-            generatePokemon(poke.pokemon, poke.species)
+    pokemonsToShow = filteredPokemons.slice(0, 12)
 
-        });
+    if (input !== '') {
+        loadButton.style.display = ' none'
+    } else {
+        loadButton.style.display = ' block'
+    }
+
+
+    if (pokemonsToShow.length == 0) {
+        card.innerHTML = `
+ <p class="empty-search">No Pokémon found. Try a different search.</p>
+ `
+
+    }
+
+
+
+    pokemonsToShow.forEach(poke => {
+
+        generatePokemon(poke.pokemon, poke.species)
+
+    });
+
 
 
 
@@ -75,7 +103,12 @@ searchInput.addEventListener('input', (e) => {
 
 
 
+
+//sort by order
+
 sortingOptionClick.addEventListener('click', () => {
+
+
 
     sortingOption.classList.toggle('active')
 
@@ -85,7 +118,12 @@ sortingOptionClick.addEventListener('click', () => {
         sortByIcon.className = 'fa-solid fa-angle-down'
     }
 
+
+
 })
+
+
+
 
 sortLH.addEventListener('click', () => {
 
@@ -157,7 +195,6 @@ randomBtn.addEventListener('click', () => {
 
 
 
-
 loadButton.addEventListener('click', () => {
     loader()
 
@@ -215,7 +252,7 @@ async function fetchData() {
             randomMode = false;
         }
 
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=215`);
 
         //data
         const pokemonData = await response.json();
@@ -318,7 +355,8 @@ function displayPokemons() {
 
         }
 
-    } else {
+    }
+    else {
 
         // random
         if (randomMode) {

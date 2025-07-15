@@ -26,7 +26,7 @@
                     <h1>Pok&eacute;dex</h1>
 
 
-                    <input id="poke-finder" placeholder="Search Pokemon by Name/Id">
+
                     <button id="search-submit" onclick="searchData()">search</button>
 
 
@@ -58,16 +58,25 @@
                         </ul>
                     </li>
 
+
+
                     <li>
                         <button id="sprite-set" href="#blank">
                             showdown sprites
                         </button>
                     </li>
 
-                    <li>
-                        <p id="loadCounter">Loaded Pokemons: 0 / 1025</p>
-                    </li>
+
+
+
                 </ul>
+
+                <div class="bottom-display">
+                    <p id="loadCounter">Loaded Pokemons: 0 / 1025</p>
+                    <input id="poke-finder" placeholder="Search Pokemon">
+
+                </div>
+
 
             </div>
 
@@ -75,7 +84,11 @@
 
             <div id="poke-container">
 
+
+
             </div>
+
+
 
             <div class="loading" id="loading">
                 <img src="loading.gif" alt="">
