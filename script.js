@@ -62,9 +62,9 @@ searchInput.addEventListener('input', (e) => {
     const filteredPokemons = allPokeData.filter(pokemons => {
         const pokemonSearch = pokemons.pokemon.name.includes(input)
         const idSearch = pokemons.pokemon.id.toString().includes(input)
-      
 
-        return pokemonSearch || idSearch 
+
+        return pokemonSearch || idSearch
 
     });
 
@@ -204,9 +204,23 @@ loadButton.addEventListener('click', () => {
         pokeCounter -= 12;
     }
 
-
+   const currentCount = document.querySelectorAll('.poke-info').length;
+    
     setTimeout(() => {
-        displayPokemons()
+        displayPokemons();
+        
+        const allCards = document.querySelectorAll('.poke-info');
+        const newCards = Array.from(allCards).slice(currentCount);
+        
+        newCards.forEach((card, index) => {
+            card.style.animationDelay = `${
+                
+                index * 0.1
+            
+            }s`;
+        });
+
+
     }, 1000);
 
     removeLoader()
@@ -487,50 +501,52 @@ async function generatePokemon(pokemon, species) {
 
 function getTypes(pokemon, typeList) {
 
+    const typeBg = {
+        grass: "#9bcc50",
+        poison: "#b97fc9",
+        fire: "#fd7d24",
+        flying: "linear-gradient(to bottom, #19d3f3 50%, #bdbdbd 50%)",
+        water: "#4592c4",
+        bug: "#729f3f",
+        normal: "#a4acaf",
+        ground: "linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)",
+        electric: "#f7de3f",
+        fairy: "#fdb9e9",
+        fighting: "#d56723",
+        psychic: "#f366b9",
+        rock: "#a38c21",
+        dark: "#707070",
+        ice: "#51c4e7",
+        ghost: "#7b62a3",
+        steel: "#9eb7b8",
+        dragon: "linear-gradient(180deg, #53a4cf 50%, #f16e57 50%)"
+    }
+
+    const typeColors = {
+        grass: "#212121",
+        poison: "white",
+        fire: "white",
+        flying: "#212121",
+        water: "white",
+        bug: "white",
+        normal: "#212121",
+        ground: "#212121",
+        electric: "#212121",
+        fairy: "#212121",
+        fighting: "white",
+        psychic: "white",
+        rock: "white",
+        dark: "white",
+        ice: "#212121",
+        ghost: "white",
+        steel: "#212121",
+        dragon: "white"
+    }
+
     pokemon.types.forEach(tayp => {
         const pokeType = document.createElement('li')
         pokeType.innerText = capitalizeFirstLetter(tayp.type.name)
-        const typeBg = {
-            grass: "#9bcc50",
-            poison: "#b97fc9",
-            fire: "#fd7d24",
-            flying: "linear-gradient(to bottom, #19d3f3 50%, #bdbdbd 50%)",
-            water: "#4592c4",
-            bug: "#729f3f",
-            normal: "#a4acaf",
-            ground: "linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)",
-            electric: "#f7de3f",
-            fairy: "#fdb9e9",
-            fighting: "#d56723",
-            psychic: "#f366b9",
-            rock: "#a38c21",
-            dark: "#707070",
-            ice: "#51c4e7",
-            ghost: "#7b62a3",
-            steel: "#9eb7b8",
-            dragon: "linear-gradient(180deg, #53a4cf 50%, #f16e57 50%)"
-        }
 
-        const typeColors = {
-            grass: "#212121",
-            poison: "white",
-            fire: "white",
-            flying: "#212121",
-            water: "white",
-            bug: "white",
-            normal: "#212121",
-            ground: "#212121",
-            electric: "#212121",
-            fairy: "#212121",
-            fighting: "white",
-            psychic: "white",
-            rock: "white",
-            dark: "white",
-            ice: "#212121",
-            ghost: "white",
-            steel: "#212121",
-            dragon: "white"
-        }
 
         if (typeColors[tayp.type.name]) {
             pokeType.style.background = typeBg[tayp.type.name]

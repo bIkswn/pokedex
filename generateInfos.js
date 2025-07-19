@@ -16,6 +16,7 @@ function generateInfos() {
            <div class="pokeHead">
                 <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="">
                 <h1 class="pokeName">${capitalizeFirstLetter(pokemon.name)}</h1>
+              <div class="line-div"></div>
                 <p class="pokeID">${getID()}</p>
                  <h3 class="flexType">
 
@@ -29,11 +30,10 @@ function generateInfos() {
 
 
             <div class="batch-1">
-   <h3 class="flavorText">
-   ${capitalizeFirstLetter(pokemon.name)}
-   <br>
+            <h2 class="flavorTextHeader">${capitalizeFirstLetter(pokemon.name)}</h2>
+   <p class="flavorText">
    ${getFlavorText()}
-   </h3>
+   </p>
             </div>
 
             <div class="batch-2">
@@ -92,7 +92,12 @@ function getFlavorText() {
     if (v9) {
         return v9.flavor_text
     } else {
-        return "tite"
+
+       const defaultText = species.flavor_text_entries.find(
+        entry => entry.language.name.includes('en')
+       )
+        
+       return defaultText.flavor_text
     }
 
 }

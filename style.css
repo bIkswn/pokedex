@@ -1,5 +1,5 @@
 @import url(https://db.onlinewebfonts.com/c/073a3b73a63a87e100f6bb8f003fc0d3?family=Flexo-Demi);
-
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&display=swap');
 
 /* <div class="poke-info">
   <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png">
@@ -33,6 +33,7 @@
 :root {
 
     --main-font: "Flexo-Demi", arial, sans-serif;
+    --header-font: "Orbitron", sans-serif;
 
 }
 
@@ -66,10 +67,12 @@ body {
 }
 
 .poke-search h1 {
-    font-family: var(--main-font);
+    font-family: var(--header-font);
     font-size: 62px;
-    text-shadow: 0 0 5px #EE1C23;
-
+    color: #B67644;
+    text-shadow: 0 2px 8px #fff9ed, 0 0 5px #8b4b25;
+    letter-spacing: 2px;
+    font-weight: 900;
 }
 
 
@@ -247,7 +250,28 @@ body {
     margin: 1rem auto auto auto;
     width: 200px;
     /* filter: grayscale(100%); */
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
+
+    animation: fadeInUp 0.1s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+.poke-info.loaded {
+    opacity: 1;
 }
 
 .poke-info:hover {
@@ -310,7 +334,9 @@ body {
 
 /* infos typeflex */
 
-#typeFlex {}
+#typeFlex {
+
+}
 
 #typeFlex li {
     list-style: none;
@@ -368,6 +394,17 @@ footer {
     opacity: .8;
 }
 
+.flavorTextHeader {
+    font-family: var(--header-font);
+    font-size: 2.2rem;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px #fff9ed, 0 0 5px #b67644;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+
 
 
 /* TAB */
@@ -412,8 +449,19 @@ footer {
     font-size: 25px;
 
 }
+.pokeID {
+    margin-bottom: 10px;
+}
 
-
+.line-div::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #835533c4;
+    border-radius: 5px;
+    margin: 10px 0;
+}
 
 .pokeDatas {
     display: flex;
@@ -530,6 +578,7 @@ footer {
 
 .flavorText {
     color: #FFF9ED;
+
 }
 
 .ident {
@@ -548,6 +597,9 @@ footer {
     align-items: center;
     padding: 0 2rem;
 }
+
+
+
 
 @media (max-width:1920px) {}
 
@@ -702,7 +754,7 @@ footer {
 
 @media (max-width:475px) {
 
-     .bottom-display {
+    .bottom-display {
         padding: .9rem;
     }
 
@@ -795,7 +847,7 @@ footer {
         font-size: 14px;
     }
 
-   
+
 }
 
 @media (max-width:320px) {}
