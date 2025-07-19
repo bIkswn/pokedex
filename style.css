@@ -670,7 +670,7 @@ footer {
     }
 
     .pokeHead {
-        max-height: 400px;
+        max-height: 370px;
     }
 
     .pokeHead img {
@@ -742,7 +742,7 @@ footer {
 @media (max-width:640px) {
 
     .pokeHead {
-        max-height: 492px;
+        max-height: 510px;
     }
 
     .pokeHead img {
