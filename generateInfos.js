@@ -2,6 +2,7 @@
 const pokemon = JSON.parse(localStorage.getItem('pokemonData'))
 const species = JSON.parse(localStorage.getItem('speciesData'))
 
+
 const title = document.getElementById('title')
 
 title.innerText = `${capitalizeFirstLetter(pokemon.name)} - Pokedex`
@@ -49,9 +50,15 @@ function generateInfos() {
                         <h3>category: ${getCategory()}</h3>
                         <h3 class="genderText">gender: ${getGender()} </h3>
                         <h3>abilities: ${getAbilities()}</h3>
-                       
-                    </div>
+                        <h3>Weaknesses:
+                          <ul id="weaknesses">
+    
+                        </ul>
 
+                        </h3>
+                       
+                    
+                    </div>
 
                 </div>
 
@@ -77,9 +84,12 @@ function generateInfos() {
 `
 
     const typesList = document.getElementById('typeFlex');
-    getTypes(pokemon, typesList)
 
+
+    getTypes(pokemon, typesList)
+    displayWeaknesses()
     getStats()
+
 
 }
 
@@ -93,11 +103,11 @@ function getFlavorText() {
         return v9.flavor_text
     } else {
 
-       const defaultText = species.flavor_text_entries.find(
-        entry => entry.language.name.includes('en')
-       )
-        
-       return defaultText.flavor_text
+        const defaultText = species.flavor_text_entries.find(
+            entry => entry.language.name.includes('en')
+        )
+
+        return defaultText.flavor_text
     }
 
 }
@@ -236,4 +246,87 @@ function getGender() {
         <i style="color: #3498db; font-size: 30px;" class="fa-solid fa-venus"></i>`
     }
 }
+
+function displayWeaknesses() {
+    const weak = getWeaknesses(pokemon)
+    const weaknessesContainer = document.getElementById('weaknesses')
+
+    weak.forEach(element => {
+
+        const pokeType = document.createElement('li');
+        pokeType.style.background = typeBg[element]
+        pokeType.style.color =typeColors[element]
+
+        pokeType.innerText = capitalizeFirstLetter(element)
+        weaknessesContainer.append(pokeType)
+    });
+}
+
+
+
+function getWeaknesses(pokemon) {
+
+    const typeChart = {
+
+        normal: { weakTo: ['fighting'], resistsTo: [], immuneTo: ['ghost'] },
+        fire: { weakTo: ['water', 'ground', 'rock'], resistsTo: ['fire', 'grass', 'ice', 'bug', 'steel', 'fairy'], immuneTo: [] },
+        water: { weakTo: ['electric', 'grass'], resistsTo: ['fire', 'water', 'ice', 'steel'], immuneTo: [] },
+        electric: { weakTo: ['ground'], resistsTo: ['electric', 'flying', 'steel'], immuneTo: [] },
+        grass: { weakTo: ['fire', 'ice', 'poison', 'flying', 'bug'], resistsTo: ['water', 'electric', 'grass', 'ground'], immuneTo: [] },
+        ice: { weakTo: ['fire', 'fighting', 'rock', 'steel'], resistsTo: ['ice'], immuneTo: [] },
+        fighting: { weakTo: ['flying', 'psychic', 'fairy'], resistsTo: ['bug', 'rock', 'dark'], immuneTo: ['ghost'] },
+        poison: { weakTo: ['ground', 'psychic'], resistsTo: ['grass', 'fighting', 'poison', 'bug', 'fairy'], immuneTo: [] },
+        ground: { weakTo: ['water', 'grass', 'ice'], resistsTo: ['poison', 'rock'], immuneTo: ['electric'] },
+        flying: { weakTo: ['electric', 'ice', 'rock'], resistsTo: ['grass', 'fighting', 'bug'], immuneTo: ['ground'] },
+        psychic: { weakTo: ['bug', 'ghost', 'dark'], resistsTo: ['fighting', 'psychic'], immuneTo: [] },
+        bug: { weakTo: ['fire', 'flying', 'rock'], resistsTo: ['grass', 'fighting', 'ground'], immuneTo: [] },
+        rock: { weakTo: ['water', 'grass', 'fighting', 'ground', 'steel'], resistsTo: ['normal', 'fire', 'poison', 'flying'], immuneTo: [] },
+        ghost: { weakTo: ['ghost', 'dark'], resistsTo: ['poison', 'bug'], immuneTo: ['normal', 'fighting'] },
+        dragon: { weakTo: ['ice', 'dragon', 'fairy'], resistsTo: ['fire', 'water', 'electric', 'grass'], immuneTo: [] },
+        ghost: { weakTo: ['ghost', 'dark'], resistsTo: ['poison', 'bug'], immuneTo: ['normal', 'fighting'] },
+        dragon: { weakTo: ['ice', 'dragon', 'fairy'], resistsTo: ['fire', 'water', 'electric', 'grass'], immuneTo: [] },
+        dark: { weakTo: ['fighting', 'bug', 'fairy'], resistsTo: ['ghost', 'dark'], immuneTo: ['psychic'] },
+        steel: { weakTo: ['fire', 'fighting', 'ground'], resistsTo: ['normal', 'grass', 'ice', 'flying', 'psychic', 'bug', 'rock', 'dragon', 'steel', 'fairy'], immuneTo: ['poison'] },
+        fairy: { weakTo: ['poison', 'steel'], resistsTo: ['fighting', 'bug', 'dark'], immuneTo: ['dragon'] }
+
+    };
+
+    const pokemonType = pokemon.types.map(x => x.type.name)
+
+    let effectiveness = {}
+
+    Object.keys(typeChart).forEach(element => {
+        effectiveness[element] = 1;
+    });
+
+    pokemonType.forEach(type => {
+
+        const defType = typeChart[type]
+
+        defType.weakTo.forEach(element => {
+            effectiveness[element] *= 2;
+        });
+
+
+        defType.resistsTo.forEach(element => {
+            effectiveness[element] *= .5
+        })
+
+        defType.immuneTo.forEach(element => {
+            effectiveness[element] = 0
+        })
+
+
+
+    })
+
+    const weaknesses = Object.entries(effectiveness).filter(
+        ([type, value]) => value >= 2
+    ).map(([type, value]) => type)
+
+    return weaknesses
+}
+
+
+
 

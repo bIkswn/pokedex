@@ -10,6 +10,7 @@
     <li style="background: #b97fc9;">Poison</li>
   </ul>
 </div>
+
 <div class="poke-info">
   <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png">
   <p class="poke-id">#0004</p>
@@ -18,6 +19,7 @@
     <li style="background: #fd7d24;">Fire</li>
   </ul>
 </div> */
+
 
 * {
     margin: 0;
@@ -334,9 +336,7 @@ body {
 
 /* infos typeflex */
 
-#typeFlex {
-
-}
+#typeFlex {}
 
 #typeFlex li {
     list-style: none;
@@ -449,6 +449,7 @@ footer {
     font-size: 25px;
 
 }
+
 .pokeID {
     margin-bottom: 10px;
 }
@@ -598,6 +599,21 @@ footer {
     padding: 0 2rem;
 }
 
+#weaknesses li {
+    list-style: none;
+    margin-bottom: 6px;
+    padding: 4px 40px;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+#weaknesses {
+   display: grid;
+ grid-template-columns: repeat(2, auto);
+    gap: 10px;
+}
 
 
 
