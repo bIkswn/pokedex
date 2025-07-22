@@ -7,6 +7,7 @@ const title = document.getElementById('title')
 
 title.innerText = `${capitalizeFirstLetter(pokemon.name)} - Pokedex`
 
+
 generateInfos()
 
 function generateInfos() {

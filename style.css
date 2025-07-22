@@ -606,14 +606,15 @@ footer {
     padding: 4px 40px;
     font-size: 14px;
     border-radius: 5px;
-    width: 100%;
+   max-width: 130px;
     text-align: center;
 }
 
 #weaknesses {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    gap: 10px;
+    gap: 5px;
+    width: 265px;
 }
 
 

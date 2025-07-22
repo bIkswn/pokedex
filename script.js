@@ -68,6 +68,8 @@ const sortKalos = document.getElementById('kalos')
 
 const setSprite = document.getElementById('sprite-set');
 
+const settingsWrapper = document.querySelector('.settings-wrapper');
+
 //default 
 let pokeCounter = 0;
 
@@ -291,6 +293,8 @@ function removeLoader() {
 async function fetchData() {
 
     try {
+        settingsWrapper.style.display = 'none';
+        searchInput.style.display = 'none'
 
         loader()
         card.style.justifyContent = "center"
@@ -317,7 +321,8 @@ async function fetchData() {
 
 
         displayPokemons()
-
+        settingsWrapper.style.display = 'flex';
+        searchInput.style.display = 'flex';
 
 
     }
@@ -456,8 +461,6 @@ function displayPokemons() {
 async function fetchPokemonData(pokemon) {
     const dataUrl = pokemon.url
 
-
-
     try {
         const response = await fetch(dataUrl)
         const pokemonData = await response.json()
@@ -467,6 +470,7 @@ async function fetchPokemonData(pokemon) {
 
 
         console.log(speciesData);
+
 
         generatePokemon(pokemonData, speciesData);
 
@@ -494,6 +498,7 @@ async function generatePokemon(pokemon, species) {
         generateTab(pokemon, species)
     })
 
+
     const pokeSprite = document.createElement('img')
     pokeSprite.src = pokemon.sprites.other[`${sprite}`].front_default;
 
@@ -513,8 +518,6 @@ async function generatePokemon(pokemon, species) {
     } else if (pokemon.id < 10000) {
         pokeId.innerHTML = `#${pokemon.id}`
     }
-
-
 
 
     const pokeTypeFlex = document.createElement('ul')
@@ -654,7 +657,7 @@ function generateTab(pokemon, species) {
 
     // open new window (poke_infos.html)
     window.open('poke_infos.html', '_blank')
-    generateInfos()
+
 
 }
 
