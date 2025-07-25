@@ -617,6 +617,16 @@ footer {
     width: 265px;
 }
 
+.abilidad {
+    /* Add a white outline to the font */
+    -webkit-text-stroke: 1px #000000;
+    text-stroke: 1px #000000; /* fallback for some browsers */
+
+    /* Add a black text shadow for extra contrast */
+  font-weight: 900;
+  font-family: var(--header-font);
+}
+
 
 
 @media (max-width:1920px) {}

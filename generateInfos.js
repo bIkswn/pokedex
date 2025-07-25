@@ -50,7 +50,8 @@ function generateInfos() {
                         <h3>weight: ${computeWeight()}</h3>
                         <h3>category: ${getCategory()}</h3>
                         <h3 class="genderText">gender: ${getGender()} </h3>
-                        <h3>abilities: ${getAbilities()}</h3>
+                        <h3>abilities: <br><span class="abilidad"> ${getAbilities()} </span></h3>
+
                         <h3>Weaknesses:
                           <ul id="weaknesses">
     
@@ -76,15 +77,10 @@ function generateInfos() {
 
     </div>
 
-           
-
- 
-
-              
-
 `
-
     const typesList = document.getElementById('typeFlex');
+    const abilidad = document.querySelector('.abilidad')
+    abilidad.style.color = typeBg[pokemon.types[0].type.name]
 
 
     getTypes(pokemon, typesList)
@@ -174,10 +170,12 @@ function getAbilities() {
 
     pokemon.abilities.forEach(x => {
 
-        pokemonAbilities.push(capitalizeFirstLetter(x.ability.name))
+        pokemonAbilities.push(`&bullet; ${capitalizeFirstLetter(x.ability.name)}`)
     });
 
-    return pokemonAbilities.join(', ')
+
+
+    return pokemonAbilities.join('<br>')
 
 }
 
@@ -256,7 +254,7 @@ function displayWeaknesses() {
 
         const pokeType = document.createElement('li');
         pokeType.style.background = typeBg[element]
-        pokeType.style.color =typeColors[element]
+        pokeType.style.color = typeColors[element]
 
         pokeType.innerText = capitalizeFirstLetter(element)
         weaknessesContainer.append(pokeType)
