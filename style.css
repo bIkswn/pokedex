@@ -410,10 +410,13 @@ footer {
 /* TAB */
 
 #pokeInfos {
-    margin: 5rem 8rem 0 8rem;
+
+    margin: 4rem auto;
+    padding: 4rem;
     justify-content: center;
+    align-content: center;
     background: #FFF9ED;
-    padding: 3rem;
+    width: fit-content;
     border-radius: 10px;
     min-height: 80vh;
     font-family: var(--main-font);
@@ -510,7 +513,7 @@ footer {
 
 #stats {
 
-
+    margin-right: 14rem;
     max-height: 310px;
     border-radius: 5px;
     position: relative;
@@ -606,7 +609,7 @@ footer {
     padding: 4px 40px;
     font-size: 14px;
     border-radius: 5px;
-   max-width: 130px;
+    max-width: 130px;
     text-align: center;
 }
 
@@ -620,11 +623,12 @@ footer {
 .abilidad {
     /* Add a white outline to the font */
     -webkit-text-stroke: 1px #000000;
-    text-stroke: 1px #000000; /* fallback for some browsers */
+    text-stroke: 1px #000000;
+    /* fallback for some browsers */
 
     /* Add a black text shadow for extra contrast */
-  font-weight: 900;
-  font-family: var(--header-font);
+    font-weight: 900;
+    font-family: var(--header-font);
 }
 
 
@@ -655,17 +659,9 @@ footer {
     }
 }
 
-@media (max-width:1440px) {
-
-    #pokeInfos {
-        margin: 5rem 6.5rem 0 6.5rem;
-    }
-}
+@media (max-width:1440px) {}
 
 @media (max-width:1366px) {
-    #pokeInfos {
-        margin: 5rem 5.8rem 0 5.8rem;
-    }
 
     .statBox {
         max-width: 115px;
@@ -676,6 +672,7 @@ footer {
 @media (max-width:1280px) {
     #pokeInfos {
         margin: 1.5rem;
+
     }
 
     .batch-2 {
@@ -684,6 +681,10 @@ footer {
 
     .statBox {
         max-width: 165px;
+    }
+
+    #stats {
+        margin: auto;
     }
 }
 
